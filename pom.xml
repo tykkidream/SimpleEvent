@@ -9,6 +9,7 @@
 
 	<modules>
 		<module>event-core</module>
+		<module>event-mybatis</module>
 	</modules>
 
 	<dependencyManagement>
