@@ -6,5 +6,5 @@ import java.util.List;
  * Created by Tykkidream on 2018/1/1.
  */
 public interface EventRepository {
-    void save(List<Event> events);
+    void save(String transactionId, List<Event> events);
 }

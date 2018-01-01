@@ -10,7 +10,7 @@ import java.util.List;
  */
 public class MybatiEventRepository implements EventRepository {
     @Override
-    public void save(List<Event> events) {
+    public void save(String transactionId, List<Event> events) {
 
     }
 }
