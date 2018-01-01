@@ -1,4 +1,4 @@
-package com.tykkidream.event;
+package com.tykkidream.event.core;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.tykkidream.event;
+package com.tykkidream.event.core;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
