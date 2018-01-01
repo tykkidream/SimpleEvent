@@ -18,6 +18,7 @@ public class EventPersistenceAdvice {
     private EventRepository eventRepository;
 
     public Object watchPerformance(ProceedingJoinPoint joinPoint) throws Throwable {
+        String transactionType = null;
         String transactionId = null;
         WorkUnit unitOfWork = null;
         Object returnValue;
@@ -40,7 +41,7 @@ public class EventPersistenceAdvice {
             if (unitOfWork.isEnable()){
                 List<Event> events = unitOfWork.commit();
                 logger.info("方法 {} 发布的所有事件：{}", joinPoint.getSignature().getName(), JSON.toJSONString(events));
-                eventRepository.save(transactionId, events);
+                eventRepository.save(new EventTransaction(transactionType, transactionId), events);
             }
         } catch (Throwable throwable) {
             unitOfWork.rollback();

@@ -2,6 +2,7 @@ package com.tykkidream.event.mybatis;
 
 import com.tykkidream.event.core.Event;
 import com.tykkidream.event.core.EventRepository;
+import com.tykkidream.event.core.EventTransaction;
 
 import java.util.List;
 
@@ -10,7 +11,7 @@ import java.util.List;
  */
 public class MybatiEventRepository implements EventRepository {
     @Override
-    public void save(String transactionId, List<Event> events) {
+    public void save(EventTransaction transaction, List<Event> events) {
 
     }
 }
