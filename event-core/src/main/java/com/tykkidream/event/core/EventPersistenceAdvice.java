@@ -11,13 +11,14 @@ import org.aspectj.lang.ProceedingJoinPoint;
 /**
  * Created by Tykkidream on 2018/1/1.
  */
-public class WorkUnitAdvice {
-    @Resource
-    private WorkUnitManager unitOfWorkManager;
+public class EventPersistenceAdvice {
+    private static Logger logger = LoggerFactory.getLogger(EventPersistenceAdvice.class);
 
-    private static Logger logger = LoggerFactory.getLogger(WorkUnitAdvice.class);
+    @Resource
+    private EventRepository eventRepository;
 
     public Object watchPerformance(ProceedingJoinPoint joinPoint) throws Throwable {
+        String transactionId = null;
         WorkUnit unitOfWork = null;
         Object returnValue;
 
@@ -39,7 +40,7 @@ public class WorkUnitAdvice {
             if (unitOfWork.isEnable()){
                 List<Event> events = unitOfWork.commit();
                 logger.info("方法 {} 发布的所有事件：{}", joinPoint.getSignature().getName(), JSON.toJSONString(events));
-                unitOfWorkManager.publishEvent(events);
+                eventRepository.save(transactionId, events);
             }
         } catch (Throwable throwable) {
             unitOfWork.rollback();
@@ -48,9 +49,5 @@ public class WorkUnitAdvice {
 
         return returnValue;
 
-    }
-
-    public void setWorkUnitManager(WorkUnitManager unitOfWorkManager) {
-        this.unitOfWorkManager = unitOfWorkManager;
     }
 }
